@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "WHOIS Web Scanner",
+  "version": "1.0.0",
+  "description": "A WHOIS parser which scans website for safety",
+  "action": {
+    "default_popup": "popup.html",
+    "icons": {
+        "48": "images/icon-48.png",
+        "128": "images/icon-128.png"
+    }
+  },
+  "permissions": ["tabs", "activeTab"]
+}
