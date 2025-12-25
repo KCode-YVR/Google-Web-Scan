@@ -11,10 +11,27 @@ async function getCurrentTab() {
 async function handleScanClick() {
     resultsDiv.innerHTML = "You pressed the button. Getting URLs...";
     const curTab = await getCurrentTab();
+     if (!curTab || !curTab.url) {
+        resultsDiv.innerHTML += 'Unable to read the current tab url.';
+        return;
+    }
     const tabURL = curTab.url;
-    resultsDiv.innerHTML += 'Current Tab URL is: ' + tabURL;
+    const tabDomain = extractDomain(curTab.url);
+    resultsDiv.innerHTML += 'Current Tab URL is: ' + tabURL + '. Its domain name is: ' + tabDomain;
     console.log("Current URL:", tabURL);
+    console.log("The hostname of URL:", tabDomain);
 }
+
+function extractDomain(url) {
+    try {
+        const parsedUrl = new URL(url);
+        return parsedUrl.hostname;
+    } catch (e) {
+        return null;
+    }
+}
+
+
 
 scanButton.addEventListener('click', handleScanClick);
 
