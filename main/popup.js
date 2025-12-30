@@ -3,7 +3,6 @@ const resultsDiv = document.getElementById('results');
 
 async function getCurrentTab() {
     let queryOptions = { active: true, lastFocusedWindow: true };
-    // `tab` will either be a `tabs.Tab` instance or `undefined`.
     let [tab] = await chrome.tabs.query(queryOptions);
     return tab;
 }
@@ -11,21 +10,21 @@ async function getCurrentTab() {
 async function handleScanClick() {
     resultsDiv.innerHTML = "You pressed the button. Getting URLs...";
     const curTab = await getCurrentTab();
-     if (!curTab || !curTab.url) {
+    if (!curTab || !curTab.url) {
         resultsDiv.innerHTML = 'Unable to read the current tab url.';
         return;
     }
     const tabURL = curTab.url;
-    const tabDomain = extractDomain(curTab.url);
-    if (!tabDomain) {
+    const tabDomain = extractDomain(tabURL);
+    if (!tabDomain) { 
         resultsDiv.innerHTML = 'This page does not have a domain name.';
         return;
     }
 
-    resultsDiv.innerHTML += `<br>Scanning domain, ${tabDomain}`;
+    resultsDiv.innerHTML += `<br>Scanning domain, ${tabDomain}`; 
 
     try {
-        const result = await sendDomainToBackEnd(tabDomain);
+        const result = await sendDomainToBackEnd(tabDomain); 
         console.log("Backend response: ", result);
         resultsDiv.innerHTML += '<br>Scan complete.';
     } catch (e) {
@@ -36,8 +35,7 @@ async function handleScanClick() {
 
 function extractDomain(url) {
     try {
-        const parsedUrl = new URL(url);
-        return parsedUrl.hostname;
+        return new URL(url).hostname;
     } catch (e) {
         return null;
     }
@@ -53,7 +51,7 @@ async function sendDomainToBackEnd(domain) {
             domain: domain
         })
     });
-    return response.json();
+    return response.json(); 
 }
 
 scanButton.addEventListener('click', handleScanClick);
