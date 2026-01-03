@@ -26,7 +26,7 @@ async function handleScanClick() {
     try {
         const result = await sendDomainToBackEnd(tabDomain); 
         console.log("Backend response: ", result);
-        resultsDiv.innerHTML += '<br>Scan complete.';
+        renderAssessment(result);
     } catch (e) {
         console.error(e);
         resultsDiv.innerHTML = 'Error with backend scan';
@@ -52,6 +52,29 @@ async function sendDomainToBackEnd(domain) {
         })
     });
     return response.json(); 
+}
+
+function renderAssessment(result) {
+    const assessment = result.assessment;
+    const whois = result.whois;
+
+    const reasonsHtml = assessment.reasons
+        .map(r => `<li>${r}</li>`)
+        .join("");
+
+    resultsDiv.innerHTML = `
+        <p><strong>Domain:</strong> ${assessment.domain}</p>
+        <p><strong>Classification:</strong> ${assessment.classification}</p>
+        <p><strong>Risk Score:</strong> ${assessment.risk_score}/100</p>
+
+        <p><strong>Reasons:</strong></p>
+        <ul>${reasonsHtml}</ul>
+
+        <p><strong>WHOIS Summary:</strong></p>
+        <p><strong>Creation:</strong> ${whois.creation_date}</p>
+        <p><strong>Expiration:</strong> ${whois.expiration_date}</p>
+        <p><strong>Registrar:</strong> ${whois.registrar}</p>
+    `;
 }
 
 scanButton.addEventListener('click', handleScanClick);

@@ -116,13 +116,13 @@ def scoreRegistrar(whoisData: Dict[str, Any]) -> Tuple[int, List[str]]:
         reasons.append("Registrar missing or unavailable")
         return score_delta, reasons
 
-    registrarNorm = str(registrar).strip().lower()
+    registrarNorm = str(registrar).lower()
 
     if registrarNorm in TRUSTEDREGISTRARS:
         score_delta -= 20
         reasons.append("Registrar matches trusted registrar list")
     else:
-        score_delta += 10
+        score_delta += 20
         reasons.append("Registrar is not found in trusted registrar list")
 
     return score_delta, reasons
