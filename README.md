@@ -5,7 +5,9 @@ This application offers the general public a quick, surface-level security check
 
 This app is a google web extension which allow users to: 
 - open the extension on their web browser
-- run a whatis scanner to all website that are currently on their screen by pressing a scan button
-- view a summary of the scan which would include a list of safe websites and a list of unsafe website
-- check each website's whatis data 
+- run a whoois scanner to the current website that they are currently on the "scan" button
+- view an assessment of the website which includes the domain name, the risk score provided by the program, a classification: "safe", "be wary", "unsafe", and the reasons to why it got the risk score
+- view some of the whois data: creation date, expiration date, registrar, and name servers
+
+Still being updated:) 
 
