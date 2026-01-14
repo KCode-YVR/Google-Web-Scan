@@ -9,5 +9,16 @@ This app is a google web extension which allow users to:
 - view an assessment of the website which includes the domain name, the risk score provided by the program, a classification: "safe", "be wary", "unsafe", and the reasons to why it got the risk score
 - view some of the whois data: creation date, expiration date, registrar, and name servers
 
-Still being updated:) 
+Still being updated, adding a remote server soon!:) 
+
+# Instructions:
+
+The application currently only works if your local device hosts the server. To do so follow the following steps:
+1. Clone this repository and save it to a local directory on your machine.
+2. Open a terminal and navigate to the backend directory by using 'cd backend'
+3. Install the required Python dependencies by using 'pip install -r requirements.txt'.
+4. Start the FastAPI server by typing 'uvicorn main:app --reload'.
+5. Open chrome and press 'manage extension'.
+6. Make sure the developer mode is on.
+7. Click 'Load unpacked' and select the file title 'extension'.  
 
