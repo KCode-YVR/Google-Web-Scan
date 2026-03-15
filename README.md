@@ -22,35 +22,4 @@ The application currently only works if your local device hosts the server. To d
 6. Make sure the developer mode is on.
 7. Click 'Load unpacked' and select the file title 'extension'.  
 
-``` mermaid
-sequenceDiagram
-    actor User
-    participant Browser
-    participant API
-    participant DB
-    participant Cache
 
-    User->>Browser: Enter credentials
-    Browser->>API: POST /auth/login
-    API->>DB: SELECT user WHERE email = ?
-    DB-->>API: User record
-
-    alt Invalid credentials
-        API-->>Browser: 401 Unauthorized
-        Browser-->>User: Show error message
-    else Valid credentials
-        API->>Cache: Store session token (TTL: 24h)
-        Cache-->>API: OK
-        API-->>Browser: 200 OK + JWT token
-        Browser-->>User: Redirect to dashboard
-    end
-
-    Note over Browser,API: Subsequent authenticated requests
-
-    User->>Browser: Visit protected page
-    Browser->>API: GET /dashboard (Bearer token)
-    API->>Cache: Validate token
-    Cache-->>API: Token valid
-    API-->>Browser: 200 OK + page data
-    Browser-->>User: Render dashboard
-```
